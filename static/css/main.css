@@ -1,0 +1,30 @@
+body {
+    background: #f7f7f7;
+}
+
+.wrapper-tweets {
+    margin-top: 30px;
+}
+
+    .wrapper-tweets .tweet,
+    .notifications-wrapper .media {
+        background: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    .wrapper-tweets .tweet .name {
+        font-weight: bold;
+    }
+
+    .wrapper-tweets .tweet .info {
+        font-size: 12px;
+        color: #d7d7d7;
+    }
+
+.rounded-image {
+    border-radius: 15%; /* Makes the image round */
+    overflow: hidden;  /* Ensures image content stays within the rounded shape */
+    object-fit: cover; /* Keeps the image proportions intact */
+}

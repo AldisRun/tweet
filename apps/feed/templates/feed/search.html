@@ -1,0 +1,82 @@
+{% extends 'core/base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+    <div class="container">
+        <div class="columns">
+            <div class="column is-12">
+                <h1 class="title">Search</h1>
+
+                <p>Search term: "{{ query }}"</p>
+
+                <hr>
+                
+                <form method="get" action="{% url 'search' %}">
+                    <div class="field">
+                        <div class="control">
+                            <input type="text" class="inpu" name="query" value="{{ query }}">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Search</button>
+                        </div>
+                    </div>
+                </form>
+
+                <hr>
+
+                <div class="search-results">
+                    {% if not tweeters and tweets %}
+                        <p>No results, plese try a different search term...</p>
+                    {% endif %}
+
+                    {% if tweeters %}
+                        <strong>Tweeters</strong>
+
+                        {% for tweeter in tweeters %}
+                            <p><a href="{% url 'tweeterprofile' tweeter.username %}">{{ tweeter.username }}</a></p>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if tweets %}
+                        <strong>Tweets</strong>
+
+                        <div class="wrapper-tweets">
+                            {% for tweet in tweets %}
+                                <div class="tweet">
+                                    <article class="media">
+                                        <figure class="media-left">
+                                            <p class="image is-64x64">
+                                                {% if tweet.created_by.tweeterprofile.avatar %}
+                                                    <img src="{{ tweet.created_by.tweeterprofile.avatar.url }}" class="rounded-image">
+                                                {% endif %}
+                                            </p>
+                                        </figure>
+
+                                        <div class="media-content">
+                                            <div class="content">
+                                                <p>
+                                                    <strong><a href="{% url 'tweeterprofile' tweet.created_by.username %}">{{ tweet.created_by.username }}</a></strong>
+                                                    <small>{{ tweet.created_at|naturaltime }}</small>
+                                                    <br>
+                                                    {{ tweet.body }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% for tweeter in tweeters %}
+                        <p><a href="{% url 'tweeterprofile' tweeter.username %}">{{ tweeter.username }}</a></p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
